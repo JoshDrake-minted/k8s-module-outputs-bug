@@ -1,0 +1,15 @@
+kind: Project
+name: k8s-module-outputs-bug
+environments:
+  - name: dev
+    defaultNamespace: user-${local.username}
+providers:
+  - name: kubernetes
+    context: <your-kubectx-here>
+    environments: [dev]
+    buildMode: kaniko
+    setupIngressController: nginx
+    tlsCertificates:
+      - name: ${local.usernameLowerCase}-dev
+        secretRef:
+          name: tls-${local.usernameLowerCase}-dev

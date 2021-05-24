@@ -1,0 +1,20 @@
+---
+kind: Module
+type: container
+name: container
+include:
+  - ./
+---
+kind: Module
+type: kubernetes
+name: manifests
+build:
+  dependencies:
+    - container
+serviceResource:
+  kind: Deployment
+  containerModule: container
+files: [.manifests.yml]
+generateFiles:
+  - sourcePath: manifests.yml
+    targetPath: .manifests.yml
